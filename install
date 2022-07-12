@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+
+distro=$(lsb_release -d | awk '{print $2}')
+
+if [ $distro = "Oracle" ]; then
+	if ! which smbclient > /dev/null; then
+		sudo yum install -y samba samba-client
+	else
+		echo "installed package"
+	fi
+
+	if ! sudo which mount.cifs > /dev/null; then
+		sudo yum install -y cifs-utils
+	else
+		echo "installed package"
+	fi
+
+elif [ $distro = "Debian" ]; then
+	if ! which smbclient > /dev/null ; then
+		sudo apt install samba smbclient
+	else
+		echo "installed package"
+	fi
+
+	if ! sudo which mount.cifs > /dev/null; then
+		sudo apt install cifs-utils
+	else
+		echo "installed package"
+	fi
+else
+	echo "unregistered distro"
+fi
+
