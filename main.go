@@ -16,6 +16,7 @@ func main() {
 	)
 
 	pwd, err := os.Getwd()
+	userEnv := os.Getenv("USER")
 
 	if err != nil {
 		fmt.Println(err)
@@ -40,7 +41,7 @@ func main() {
 		path = filepath.Join(pwd, path)
 	}
 
-	command := fmt.Sprintf("sudo mount.cifs //%s/%s %s -o user=%s", server, folderShare, path, user)
+	command := fmt.Sprintf("sudo mount.cifs //%s/%s %s -o user=%s,uid=%s,gid=%s", server, folderShare, path, user, userEnv, userEnv)
 
 	cmd := exec.Command("/bin/sh", "-c", command)
 	_, err = cmd.Output()
