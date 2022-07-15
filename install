@@ -18,26 +18,38 @@ setup_golang_debian() {
 
 if [ $distro = "Oracle" ]; then
 	if ! which smbclient > /dev/null; then
-		sudo yum install -y samba samba-client
+		read -p "Desea instalar smbclinet? [Y/n] " response
+		if [ $response = "Y" ]; then
+			sudo yum install -y samba samba-client
+		fi
 	else
 		echo "installed package"
 	fi
 
 	if ! sudo which mount.cifs > /dev/null; then
-		sudo yum install -y cifs-utils
+		read -p "Desea instalar cifs-utils? [Y/n] " response
+		if [ $response = "Y" ]; then
+			sudo yum install -y cifs-utils
+		fi
 	else
 		echo "installed package"
 	fi
 
 elif [ $distro = "Debian" ]; then
 	if ! which smbclient > /dev/null ; then
-		sudo apt install samba smbclient
+		read -p "Desea instalar smbclient? [Y/n] " response
+		if [ $response = "Y" ]; then
+			sudo apt install -y samba smbclient
+		fi
 	else
 		echo "installed package"
 	fi
 
 	if ! sudo which mount.cifs > /dev/null; then
-		sudo apt install cifs-utils
+		read -p "Desea instalar cifs-utils? [Y/n] " response
+		if [ $response = "Y" ]; then
+			sudo apt install -y cifs-utils
+		fi
 	else
 		echo "installed package"
 	fi
@@ -45,4 +57,4 @@ else
 	echo "unregistered distro"
 fi
 
-setup_golang_debian
+# setup_golang_debian
