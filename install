@@ -10,8 +10,8 @@ setup_golang_debian() {
 		sudo tar -zxvf go1.18.3.linux-amd64.tar.gz -C /usr/local
 
 		echo "export PATH=/usr/local/go/bin:${PATH}" >> ~/.bashrc
-		$(source ~/.bashrc)
-		$(rm -rf go1.18.13.linux-amd64.tar.gz)
+		source ~/.bashrc
+		rm -rf go1.18.13.linux-amd64.tar.gz
 	else
 		echo "installed package"
 	fi
