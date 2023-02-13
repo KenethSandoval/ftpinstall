@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 distro=$(lsb_release -d | awk '{print $2}')
 repo=https://github.com/karchx/ftpsmb
 
 setup_golang_debian() {
-	if ! which go version > /dev/null; then
+	if ! which go > /dev/null; then
 		wget https://golang.org/dl/go1.18.3.linux-amd64.tar.gz
 		sudo tar -zxvf go1.18.3.linux-amd64.tar.gz -C /usr/local
 
@@ -58,6 +58,8 @@ else
 	echo "unregistered distro"
 fi
 
+setup_golang_debian
+
 echo "Downloading project..."
 git clone $repo 
 
@@ -65,9 +67,9 @@ echo "Make ftp..."
 cd ftpsmb
 go build -o ftp
 
+echo "Make binary"
+sudo mv ftp /usr/bin
+
 echo "Removed trash..."
 cd ../
 rm -rf ftpsmb
-
-echo "Make binary"
-sudo mv ftp /usr/bin
